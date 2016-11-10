@@ -19,10 +19,10 @@ Public Class Form1
 #Region "Form-Events"
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        MetroLabel3.Text = Application.ProductVersion 'Gibt aktuelle Version in Label aus
+        Label3.Text = Application.ProductVersion 'Gibt aktuelle Version in Label aus
     End Sub
 
-    Private Sub MetroTile1_Click(sender As Object, e As EventArgs) Handles MetroTile1.Click
+    Private Sub MetroTile1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         UpdatePrüfung()
     End Sub
 
@@ -80,10 +80,10 @@ Public Class Form1
                             DownloadVerzeichnisUpdate = My.Application.Info.DirectoryPath & "\Temp\Update.exe" 'Gibt Zielpfad an
 
                             'Schaltet Progressbar visible
-                            MetroProgressBar1.Value = 0
-                            MetroProgressBar1.Maximum = 100
-                            MetroProgressBar1.Visible = True
-                            MetroLabel4.Visible = True
+                            ProgressBar1.Value = 0
+                            ProgressBar1.Maximum = 100
+                            ProgressBar1.Visible = True
+                            Label4.Visible = True
 
                             HTTPClient = New WebClient 'HttpClient (lädt nur binäre Dateien)
                             Try
@@ -122,7 +122,7 @@ Public Class Form1
 
     Private Sub HTTPClient_DownloadProgressChanged(ByVal sender As Object, ByVal e As System.Net.DownloadProgressChangedEventArgs) Handles HTTPClient.DownloadProgressChanged
         'Progressbar
-        With MetroProgressBar1 'Berechnet Anzeige für Fortschritt
+        With ProgressBar1 'Berechnet Anzeige für Fortschritt
             .Value = e.ProgressPercentage
 
             Dim TotalBytes As Long = e.TotalBytesToReceive / 1024 'Fragt Gesamtgröße (Bytes) ab, die es zu empfangen gilt (/1024 um KiloBytes zu erhalten)
@@ -130,9 +130,9 @@ Public Class Form1
             If TotalBytes < 1 Then TotalBytes = 1 'Wenn kleiner 1 Byte, dann 1 Byte
             If Bytes < 1 Then Bytes = 1 'Wenn kleiner 1 Byte, dann 1 Byte
 
-            MetroLabel4.Text = Bytes.ToString & " KB von " & TotalBytes.ToString & " KB" 'Anzeige im Label
+            Label4.Text = Bytes.ToString & " KB von " & TotalBytes.ToString & " KB" 'Anzeige im Label
 
-            MetroProgressBar1.Refresh() 'Refresh für ProgressBar
+            ProgressBar1.Refresh() 'Refresh für ProgressBar
         End With
     End Sub
 
